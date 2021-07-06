@@ -155,3 +155,40 @@ function move() {
         }
     }
 }
+
+//Test
+function checkBot(xLoc, yLoc) {
+    if (labyrinth[xLoc + 1][yLoc] == "o") {
+        labyrinth[xLoc][yLoc] = "v"
+        location = [xLoc + 1, yLoc]
+        labyrinth[xLoc][yLoc] = "S"
+        xIndex++
+    }
+}
+
+function checkTop(xLoc, yLoc) {
+    if (labyrinth[xLoc - 1][yLoc] == "o") {
+        labyrinth[xLoc][yLoc] = "v"
+        location = [xLoc - 1, yLoc]
+        labyrinth[xLoc][yLoc] = "S"
+        xIndex--
+    }
+}
+
+function checkRgt(xLoc, yLoc) {
+    if (labyrinth[xLoc][yLoc + 1] == "o") {
+        labyrinth[xLoc][yLoc] = "v"
+        location = [xLoc, yLoc + 1]
+        labyrinth[xLoc][yLoc] = "S"
+        yIndex++
+    }
+}
+
+function checkLft(xLoc, yLoc) {
+    if (labyrinth[xLoc][yLoc - 1] == "o") {
+        labyrinth[xLoc][yLoc] = "v"
+        location = [xLoc, yLoc - 1]
+        labyrinth[xLoc][yLoc] = "S"
+        yIndex--
+    }
+}
