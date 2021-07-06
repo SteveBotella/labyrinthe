@@ -19,13 +19,7 @@ console.log("Win bro' !")
 
 function move() {
     if ((xIndex < labyrinth.length - 1) && (yIndex < labyrinth[1].length - 1)) {
-        if (labyrinth[location[0]][location[1] - 1] == "G") {
-            win = true
-            labyrinth[location[0]][location[1]] = "v"
-            location = [location[0], location[1] - 1]
-            labyrinth[location[0]][location[1]] = "S"
-            yIndex--
-        }
+        canGoBot()
         if (labyrinth[location[0] + 1][location[1]] == "o") {
             labyrinth[location[0]][location[1]] = "v"
             location = [location[0] + 1, location[1]]
@@ -114,5 +108,42 @@ function move() {
             labyrinth[location[0]][location[1]] = "S"
             xIndex++
         }
+    }
+}
+
+function canGoBot() {
+    if (labyrinth[location[0]][location[1] - 1] == "G") {
+        win = true
+        labyrinth[location[0]][location[1]] = "v"
+        location = [location[0], location[1] - 1]
+        labyrinth[location[0]][location[1]] = "S"
+        yIndex--
+    }
+}
+
+function canGoRgt() {
+    if (labyrinth[location[0] + 1][location[1]] == "o") {
+        labyrinth[location[0]][location[1]] = "v"
+        location = [location[0] + 1, location[1]]
+        labyrinth[location[0]][location[1]] = "S"
+        xIndex++
+    }
+}
+
+function canGoLft() {
+    if ((labyrinth[location[0]][location[1] - 1] == "o")) {
+        labyrinth[location[0]][location[1]] = "v"
+        location = [location[0], location[1] - 1]
+        labyrinth[location[0]][location[1]] = "S"
+        yIndex--
+    }
+}
+
+function canGoTop() {
+    if (labyrinth[location[0]][location[1] + 1] == "o") {
+        labyrinth[location[0]][location[1]] = "v"
+        location = [location[0], location[1] + 1]
+        labyrinth[location[0]][location[1]] = "S"
+        yIndex++
     }
 }
