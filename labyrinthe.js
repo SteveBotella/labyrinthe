@@ -1,7 +1,7 @@
-let labyrinth = [
-    ["S", "x", "o", "o", "o", "o", "o"],
+/*let labyrinth = [
+    ["S", "x", "o", "G", "o", "o", "o"],
     ["o", "x", "o", "x", "x", "o", "x"],
-    ["o", "x", "o", "x", "G", "o", "o"],
+    ["o", "x", "o", "x", "o", "o", "o"],
     ["o", "o", "o", "o", "x", "x", "o"],
     ["o", "x", "o", "x", "o", "o", "o"],
     ["o", "x", "o", "o", "o", "x", "o"],
@@ -226,4 +226,4 @@ function canGoTop() {
         labyrinth[location[0]][location[1]] = "S"
         yIndex++
     }
-}
+}*/

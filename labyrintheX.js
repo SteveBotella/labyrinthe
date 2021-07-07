@@ -6,21 +6,179 @@ let labyrinth = [
     ["o", "x", "o", "x", "o", "o", "o"],
     ["o", "x", "o", "o", "o", "x", "o"],
 ]
+let location = [0, 0]
+let win = false
+let xIndex = 0
+let yIndex = 0
+let maxX = labyrinth.length
+let maxY = labyrinth[1].length
 
-//Pour chaque case autour
-//
-// Est-ce que la case est dans le tableau ?
-// Si non -> Stop
-// Est-ce que la case est un mur ?
-// Si oui -> Stop
-// Est-ce que la case est vide ?
-// Si oui -> On y va // Sequence1
-//
-// Fin pour chaque case autour
+//debug
+let t = 0
+let count = 0
 
-// Pour chaque case autour
-//
-// Est-ce que la case a été visité ?
-// Si oui -> On y va // sequence2
-//
-// Fin pour chaque case autour
+while (!win) {
+//while (t < 7) {
+    console.log(canCheckBot())
+console.log(canCheckRgt())
+console.log(canCheckLft())
+console.log(canCheckTop())
+move()
+console.table(labyrinth)
+    t++
+}
+console.log("You win")
+
+// Je me déplace sur la prochaine case
+function move() {
+    canCheckTop()
+    canCheckLft()
+    canCheckRgt()
+    canCheckBot()
+    sequence()
+}
+
+// Est-ce que la case que l'on vérifie est dans le tableau ?
+function canCheckTop() {
+    if (xIndex - 1 >= 0) {
+        return true
+    }
+    return false
+}
+
+function canCheckLft() {
+    if (yIndex - 1 >= 0) {
+        return true
+    }
+    return false
+}
+
+function canCheckRgt() {
+    if (yIndex + 1 < maxY) {
+        return true
+    }
+    return false
+}
+
+function canCheckBot() {
+    if (xIndex + 1 < maxX) {
+        return true
+    }
+    return false
+}
+
+// Sequences de vérification
+function sequence() {
+    // Sequence de vérification étape 1
+    if (canCheckBot()) {
+        // Est-ce la case victoire
+        if (labyrinth[location[0] + 1][location[1]] == "G") {
+            win = true
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0] + 1, location[1]]
+            labyrinth[location[0]][location[1]] = "S"
+            xIndex++
+            return 0
+        }
+        // Est-ce que la case est un chemin
+        if (labyrinth[location[0] + 1][location[1]] == "o") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0] + 1, location[1]]
+            labyrinth[location[0]][location[1]] = "S"
+            xIndex++
+            return 0
+        }
+    }
+    if (canCheckRgt()) {
+        if (labyrinth[location[0]][location[1] + 1] == "G") {
+            win = true
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0], location[1] + 1]
+            labyrinth[location[0]][location[1]] = "S"
+            yIndex++
+            return 0
+        }
+        if (labyrinth[location[0]][location[1] + 1] == "o") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0], location[1] + 1]
+            labyrinth[location[0]][location[1]] = "S"
+            yIndex++
+            return 0
+        }
+    }
+    if (canCheckLft()) {
+        if (labyrinth[location[0]][location[1] - 1] == "G") {
+            win = true
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0], location[1] - 1]
+            labyrinth[location[0]][location[1]] = "S"
+            yIndex--
+            return 0
+        }
+        if (labyrinth[location[0]][location[1] - 1] == "o") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0], location[1] - 1]
+            labyrinth[location[0]][location[1]] = "S"
+            yIndex--
+            return 0
+        }
+    }
+    if (canCheckTop()) {
+        if (labyrinth[location[0] - 1][location[1]] == "G") {
+            win = true
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0] - 1, location[1]]
+            labyrinth[location[0]][location[1]] = "S"
+            xIndex--
+            return 0
+        }
+        if (labyrinth[location[0] - 1][location[1]] == "o") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0] - 1, location[1]]
+            labyrinth[location[0]][location[1]] = "S"
+            xIndex--
+            return 0
+        }
+    }
+    // Sequence de vérification étape 2
+    if (canCheckRgt()) {
+        // Est-ce que la case a été visité
+        if (labyrinth[location[0]][location[1] + 1] === "v") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0], location[1] + 1]
+            labyrinth[location[0]][location[1]] = "S"
+            yIndex++
+            return 0
+        }
+    }
+    if (canCheckLft()) {
+        // Est-ce que la case a été visité
+        if (labyrinth[location[0]][location[1] - 1] === "v") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0], location[1] - 1]
+            labyrinth[location[0]][location[1]] = "S"
+            yIndex--
+            return 0
+        }
+    }
+    if (canCheckTop()) {
+        // Est-ce que la case a été visité
+        if (labyrinth[location[0] - 1][location[1]] === "v") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0] - 1, location[1]]
+            labyrinth[location[0]][location[1]] = "S"
+            xIndex--
+            return 0
+        }
+    }
+    if (canCheckBot()) {
+        // Est-ce que la case a été visité
+        if (labyrinth[location[0] + 1][location[1]] === "v") {
+            labyrinth[location[0]][location[1]] = "v"
+            location = [location[0] + 1, location[1]]
+            labyrinth[location[0]][location[1]] = "S"
+            xIndex++
+            return 0
+        }
+    }
+}
