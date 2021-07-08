@@ -1,5 +1,5 @@
 let labyrinth = [
-    ["o", "x", "o", "o", "o", "o", "o"],
+    ["S", "x", "o", "o", "o", "o", "o"],
     ["o", "x", "o", "x", "x", "o", "x"],
     ["o", "x", "o", "x", "G", "o", "o"],
     ["o", "o", "o", "o", "x", "x", "o"],
@@ -24,11 +24,14 @@ while (!win) {
     console.log(canCheckRgt())
     console.log(canCheckLft())
     console.log(canCheckTop())
-    console.table(labyrinth)
+    //console.table(labyrinth)
+    //displayMatrix(labyrinth)
+    displayMatrix(labyrinth)
     t++
 }
 console.log("You win")
 console.log("Count : " + count)
+
 
 // Je me déplace sur la prochaine case
 function move() {
@@ -193,5 +196,28 @@ function sequence() {
             count++
             return 0
         }
+    }
+}
+
+function displayMatrix(inMtxArr) {
+    for (let k = 0; k < inMtxArr.length; k++) {
+        let ligneComplete =""
+        let sizeMax = 5
+        const sample = inMtxArr[k]
+        // |mur..|test.|2....|13...|
+        let maxTabSize = sample.length
+        for (let i = 0; i < maxTabSize; i++) {
+            let cell = sample[i]
+            let cellSize = cell.toString().length
+            if (cellSize < sizeMax) {
+                //On rajoute des points tant qu'on est pas égale a size
+                let nbPoint = sizeMax - cellSize
+                for (let j = 0; j < nbPoint; j++) {
+                    cell = cell.toString() + "."
+                }
+            }
+            ligneComplete = ligneComplete + "|" + cell
+        }
+        console.log(ligneComplete + "|")
     }
 }
